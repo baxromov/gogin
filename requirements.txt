@@ -1,0 +1,56 @@
+go get github.com/spf13/viper
+go get github.com/gin-gonic/gin
+go get gorm.io/gorm
+go get gorm.io/driver/postgres
+
+
+go get -u github.com/swaggo/swag/cmd/swag
+go install github.com/swaggo/swag/cmd/swag@latest
+go get -u github.com/swaggo/gin-swagger
+go get -u github.com/swaggo/files
+
+swag i .
+
+
+
+- cmd/
+  - main.go (entry point)
+- config/ (configuration files)
+  - config.go (configuration reader)
+- controllers/ (request handlers)
+  - user_controller.go
+  - post_controller.go
+- db/ (database-related files)
+  - models.go (database models)
+  - db.go (database connection)
+  - migrations/ (database migrations)
+    - migration1.go
+    - migration2.go
+- middlewares/ (request middleware)
+  - auth.go
+  - logging.go
+- repositories/ (database access layer)
+  - user_repository.go
+  - post_repository.go
+- routes/ (routing)
+  - router.go
+- services/ (business logic)
+  - user_service.go
+  - post_service.go
+- utils/ (helper functions)
+  - string_utils.go
+  - date_utils.go
+- tests/ (unit tests)
+  - controllers/
+    - user_controller_test.go
+    - post_controller_test.go
+  - middlewares/
+    - auth_test.go
+  - repositories/
+    - user_repository_test.go
+    - post_repository_test.go
+  - services/
+    - user_service_test.go
+    - post_service_test.go
+
+mkdir cmd config controllers db middlewares repositories routes services utils tests tests/controllers tests/middlewares tests/repositories tests/services
