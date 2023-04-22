@@ -8,26 +8,26 @@ import (
 
 type Config struct {
 	Server struct {
-		Port string
+		PORT string `mapstructure:"PORT"`
 	}
 	Database struct {
-		DSN string
+		DSN string `mapstructure:"DSN"`
 	}
 }
 
-func ReadConfig() *Config {
-	viper.SetConfigName("config")
-	viper.AddConfigPath("./config")
-	viper.SetConfigType("yaml")
+func ReadConfig() (*Config, error) {
+	viper.SetConfigName(".env")
+    viper.AddConfigPath(".")
+    viper.AutomaticEnv()
 
-	if err := viper.ReadInConfig(); err != nil {
-		log.Fatalf("Failed to read configuration: %v", err)
-	}
+    if err := viper.ReadInConfig(); err != nil {
+        log.Fatalf("Failed to read configuration file: %v", err)
+    }
 
-	var cfg Config
-	if err := viper.Unmarshal(&cfg); err != nil {
-		log.Fatalf("Failed to unmarshal configuration: %v", err)
-	}
+    // Unmarshal the configuration file into a struct
+    if err := viper.Unmarshal(&Config); err != nil {
+        log.Fatalf("Failed to unmarshal configuration file: %v", err)
+    }
 
-	return &cfg
+    return cfg, nil
 }
